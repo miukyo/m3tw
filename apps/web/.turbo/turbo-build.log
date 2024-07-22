@@ -1,0 +1,65 @@
+[0m[2m[35m$[0m [2m[1mastro check && astro build[0m
+[2m00:45:28[22m [34m[types][39m Added [1msrc/env.d.ts[22m type declarations.
+[2m00:45:28[22m [34m[vite][39m Forced re-optimization of dependencies
+[2m00:45:29[22m Types generated [2m775ms[22m
+[2m00:45:29[22m [34m[check][39m Getting diagnostics for Astro files in /Users/miu/Documents/Projects/m3tw/apps/web...
+[96mregistry/react/ui/todo-app.tsx[0m:[93m43[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'event' is declared but its value is never read.
+
+[7m43[0m                   onClick={(event) => {
+[7m  [0m [93m                            ~~~~~[0m
+[96mregistry/react/ui/todo-app.tsx[0m:[93m32[0m:[93m57[0m - [93mwarning[0m[90m ts(6133): [0m'event' is declared but its value is never read.
+
+[7m32[0m           <button className="button-71a7ca5e" onClick={(event) => addItem()}>
+[7m  [0m [93m                                                        ~~~~~[0m
+[96mregistry/react/ui/todo-app.tsx[0m:[93m18[0m:[93m26[0m - [93mwarning[0m[90m ts(6133): [0m'x' is declared but its value is never read.
+
+[7m18[0m     setList(list.filter((x, i) => i !== idx));
+[7m  [0m [93m                         ~[0m
+[96mregistry/react/ui/todo-app.tsx[0m:[93m5[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'props' is declared but its value is never read.
+
+[7m5[0m function TodoApp(props: any) {
+[7m [0m [93m                 ~~~~~[0m
+[96mregistry/react/ui/todo-app.tsx[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'React' is declared but its value is never read.
+
+[7m2[0m import * as React from "react";
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mscripts/build-registry.mts[0m:[93m3[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'REGISTRY_PATH' is declared but its value is never read.
+
+[7m3[0m const REGISTRY_PATH = path.join(process.cwd(), "public/registry");
+[7m [0m [93m      ~~~~~~~~~~~~~[0m
+
+[1mResult (11 files): [22m
+[2m-[22m [1m[31m0 errors[39m[22m
+[2m-[22m [1m[33m0 warnings[39m[22m
+[2m-[22m [2m6 hints
+[22m
+[2m00:45:35[22m [34m[types][39m Added [1msrc/env.d.ts[22m type declarations.
+[2m00:45:35[22m [34m[build][39m output: [34m"static"[39m
+[2m00:45:35[22m [34m[build][39m directory: [34m/Users/miu/Documents/Projects/m3tw/apps/web/dist/[39m
+[2m00:45:35[22m [34m[build][39m Collecting build info...
+[2m00:45:35[22m [34m[build][39m [32m✓ Completed in 139ms.[39m
+[2m00:45:35[22m [34m[build][39m Building static entrypoints...
+[2m00:45:35[22m [34m[types][39m Added [1msrc/env.d.ts[22m type declarations.
+[33m[39m
+[33m[1m[33mwarn[39m[22m - The `content` option in your Tailwind CSS configuration is missing or empty.[39m
+[33m[1m[33mwarn[39m[22m - Configure your content sources or your generated CSS will be missing styles.[39m
+[33m[1m[33mwarn[39m[22m - https://tailwindcss.com/docs/content-configuration[39m
+[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2m00:45:36[22m [34m[vite][39m [32m✓ built in 933ms[39m
+[2m00:45:36[22m [34m[build][39m [32m✓ Completed in 1.23s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m00:45:36[22m [34m[types][39m Added [1msrc/env.d.ts[22m type declarations.
+[2K[1Gtransforming (1) [2m../../node_modules/@astrojs/react/client.js[22m[2K[1Gtransforming (14) [2m../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js[22m[2K[1Gtransforming (20) [2m../../node_modules/react-dom/client.js[22m[2K[1Gtransforming (32) [2m../../node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js[22m[2K[1G[2m00:45:37[22m [34m[vite][39m [32m✓[39m 32 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1Grendering chunks (2)...[2K[1Grendering chunks (3)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1Gcomputing gzip size (3)...[2K[1G[2m00:45:37[22m [34m[vite][39m [2mdist/[22m[2m_astro/[22m[36mclient.Cx1FBVJX.js  [39m[1m[2m  0.61 kB[22m[1m[22m[2m │ gzip:  0.42 kB[22m
+[2m00:45:37[22m [34m[vite][39m [2mdist/[22m[2m_astro/[22m[36mclient.4nSrU-jl.js  [39m[1m[2m 61.63 kB[22m[1m[22m[2m │ gzip: 24.57 kB[22m
+[2m00:45:37[22m [34m[vite][39m [2mdist/[22m[2m_astro/[22m[36mclient.5I5BMcNS.js  [39m[1m[2m142.41 kB[22m[1m[22m[2m │ gzip: 45.88 kB[22m
+[2m00:45:37[22m [34m[vite][39m [32m✓ built in 1.13s[39m
+
+[42m[30m generating static routes [39m[49m
+[2m00:45:37[22m [32m▶[39m src/pages/index.astro
+[2m00:45:37[22m   [34m└─[39m [2m/index.html[22m [2m(+9ms)[22m
+[2m00:45:37[22m [32m✓ Completed in 44ms.
+[39m
+[2m00:45:37[22m [34m[build][39m 1 page(s) built in [1m2.57s[22m
+[2m00:45:37[22m [34m[build][39m [1mComplete![22m

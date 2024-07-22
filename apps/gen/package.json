@@ -1,0 +1,22 @@
+{
+  "name": "gen",
+  "private": true,
+  "scripts": {
+    "dev": "watch \"bun run build\"",
+    "build": "mitosis build --c mitosis.config.cjs",
+    "lint": "eslint"
+  },
+  "type": "module",
+  "exports": {
+    "./*": "./output/*/index.js"
+  },
+  "dependencies": {
+    "@builder.io/eslint-plugin-mitosis": "^0.0.15",
+    "@builder.io/mitosis": "^0.3.10",
+    "@builder.io/mitosis-cli": "^0.3.10",
+    "eslint": "^8.51.0"
+  },
+  "devDependencies": {
+    "watch": "^1.0.2"
+  }
+}
