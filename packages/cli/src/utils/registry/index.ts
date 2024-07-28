@@ -88,7 +88,7 @@ export async function fetchTree(framework: string, tree: z.infer<typeof registry
 
     return registryWithContentSchema.parse(result);
   } catch (error) {
-    throw new Error("Failed to fetch tree from registry.");
+    throw new Error("Failed to fetch tree from registry." + error);
   }
 }
 

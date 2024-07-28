@@ -6,7 +6,7 @@ export const Index = {
     name: "todo-app",
     type: "components:ui",
     registryDependencies: [],
-    component: () => import("ui/todo-app.vue"),
-    file: "@/registry/ui/todo-app.vue",
+    component: () => import("ui/todo-app.tsx"),
+    files: ["@/registry/ui/todo-app.tsx"],
   },
 };

@@ -29,16 +29,16 @@ export const Index = {
     `;
 
 for (const item of result.data) {
-  if (item.framework !== "vue") continue; // we'll only use react component for the examples
-//   if (item.type === "components:ui") continue;
-  const file = `@/registry/${item.file}`;
+  if (item.framework !== "react") continue; // we'll only use react component for the examples
+  //   if (item.type === "components:ui") continue;
+  const resolveFiles = item.files.map((file) => `@/registry/${file}`);
   index += `
     "${item.name}": {
         name: "${item.name}",
         type: "${item.type}",
         registryDependencies: ${JSON.stringify(item.registryDependencies)},
-        component: () => import ("${item.file}"),
-        file: "${file}",
+        component: () => import ("${item.files}"),
+        files: [${resolveFiles.map((file) => `"${file}"`)}],
     },
     `;
 }
@@ -70,12 +70,17 @@ for (const fw of framework) {
   for (const item of result.data) {
     if (item.type !== "components:ui") continue;
     if (item.framework !== fw.name) continue; // skipping unmatch framework type
-    let content = fs.readFileSync(path.join(REGISTRY_SOURCE, fw.name, item.file), "utf-8");
-    // Replace Windows-style newlines with Unix-style newlines
-    content = content.replace(/\r\n/g, "\n");
+    const files = item.files.map((file) => {
+      const content = fs.readFileSync(path.join(REGISTRY_SOURCE, fw.name, file), "utf-8");
+      return {
+        name: path.basename(file),
+        content,
+      };
+    });
+
     const payload = {
       ...item,
-      content,
+      files,
     };
     const payloadJson = JSON.stringify(payload, null, 2);
     rimrafSync(path.join(targetPath, `${item.name}.json`));

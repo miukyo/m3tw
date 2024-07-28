@@ -1,15 +1,16 @@
 {
   "typescript": true,
-  "tsConfigPath": "./tsconfig.json",
+  "tsConfigPath": "tsconfig.json",
   "tailwind": {
     "config": "tailwind.config.js",
-    "css": "src/index.css",
+    "css": "src/App.css",
     "baseColor": "red",
-    "cssVariables": true
+    "cssVariables": true,
+    "prefix": ""
   },
   "framework": "react",
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils"
+    "components": "src/components",
+    "utils": "src/lib/utils"
   }
 }

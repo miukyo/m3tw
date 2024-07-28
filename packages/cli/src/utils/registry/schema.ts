@@ -6,7 +6,7 @@ export const registryItemSchema = z.object({
   dependencies: z.array(z.string()).optional(),
   devDependencies: z.array(z.string()).optional(),
   registryDependencies: z.array(z.string()).optional(),
-  files: z.string(),
+  files: z.array(z.string()),
   framework: z.enum(["react", "vue", "svelte"]),
   type: z.enum(["components:ui", "components:primitive"]),
 });
@@ -39,4 +39,3 @@ export const registryBaseColorSchema = z.object({
   inlineColorsTemplate: z.string(),
   cssVarsTemplate: z.string(),
 });
-

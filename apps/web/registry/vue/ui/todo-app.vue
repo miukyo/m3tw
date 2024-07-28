@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const list = ref(["hello", "world"]);
+const list = ref(["hello", "worlds"]);
 const newItemName = ref("");
 
 function addItem() {

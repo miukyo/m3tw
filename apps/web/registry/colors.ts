@@ -6,7 +6,7 @@ export type BaseColorKeys = keyof (typeof BASE_COLORS)[number];
 export function getColors(color: BaseColorKeys, type: "rgb" | "hex" | "hsl") {
   const baseColor = BASE_COLORS.find((item) => color === Object.keys(item)[0]) as unknown as { [key in BaseColorKeys]: string };
   const colors = themeFromSourceColor(argbFromHex(baseColor[color]));
-  let colorScheme = {} as { [x in "dark"|"light"]: {[x:string]: unknown} };
+  let colorScheme = {} as { [x in "dark" | "light"]: { [x: string]: unknown } };
   Object.keys(colors.schemes).forEach((mode) => {
     const scheme = colors.schemes[mode as keyof typeof colors.schemes].toJSON();
     let newScheme: { [K in keyof typeof scheme]: unknown } = scheme;
@@ -21,7 +21,7 @@ export function getColors(color: BaseColorKeys, type: "rgb" | "hex" | "hsl") {
         newScheme[key as schemeKey] = `${h}, ${s}%, ${l}%`;
       }
     });
-    colorScheme[mode as "dark"|"light"] = newScheme;
+    colorScheme[mode as "dark" | "light"] = newScheme;
   });
   return colorScheme;
 }

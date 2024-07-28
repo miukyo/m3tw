@@ -2,7 +2,7 @@ import { For, useStore } from "@builder.io/mitosis";
 
 export default function TodoApp() {
   const state = useStore({
-    list: ["hello", "world"],
+    list: ["hello", "worlds"],
     newItemName: "",
     addItem() {
       if (!state.newItemName) {

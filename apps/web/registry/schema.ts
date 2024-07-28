@@ -9,7 +9,7 @@ export const registryEntrySchema = z.object({
   dependencies: z.array(z.string()).optional(),
   devDependencies: z.array(z.string()).optional(),
   registryDependencies: z.array(z.string()).optional(),
-  file: z.string(),
+  files: z.array(z.string()),
   framework: z.enum(frameworks),
   type: z.enum(["components:ui", "components:primitive"]),
   category: z.string().optional(),

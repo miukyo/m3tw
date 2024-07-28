@@ -9,8 +9,12 @@ import { colors } from "consola/utils";
 import { getRegistryBaseColor, getRegistryBaseColors, getRegistryFrameworks } from "../utils/registry";
 import ora from "ora";
 import { transformCJSToESM } from "../utils/transformers/transform-cjs-to-esm";
-import { template } from "lodash-es";
+import { gte, template } from "lodash-es";
 import * as templates from "../utils/templates";
+import { applyPrefixesCss } from "../utils/transformers/transform-tw-prefix";
+import { addDependency, addDevDependency } from "nypm";
+
+const PROJECT_DEPENDENCIES = ["tailwindcss-animate", "clsx", "class-variance-authority", "tailwind-merge"];
 
 const initOptionsSchema = z.object({
   cwd: z.string(),
@@ -32,6 +36,7 @@ export const init = new Command()
       }
       const existingConfig = await getConfig(cwd);
       const config = await promptForConfig(cwd, existingConfig, options.yes);
+      await runinit(cwd, config);
 
       consola.log("");
       consola.info(`${colors.green("Success!")} Project initialization completed.`);
@@ -77,9 +82,7 @@ export async function promptForConfig(cwd: string, defaultConfig: Config | null 
       name: "tsConfigPath",
       message: (prev, values) => `Where is your ${highlight(values.typescript ? "tsconfig.json" : "jsconfig.json")} file?`,
       initial: (prev, values) => {
-        const prefix = values.framework === "nuxt" ? ".nuxt/" : "./";
-        const path = values.typescript ? "tsconfig.json" : "jsconfig.json";
-        return prefix + path;
+        return values.typescript ? "tsconfig.json" : "jsconfig.json";
       },
     },
     {
@@ -108,7 +111,6 @@ export async function promptForConfig(cwd: string, defaultConfig: Config | null 
       message: `Where is your ${highlight("tailwind.config")} located? ${colors.gray("(this file will be overwritten)")}`,
       initial: (prev, values) => {
         if (defaultConfig?.tailwind.config) return defaultConfig?.tailwind.config;
-        if (values.framework === "astro") return "tailwind.config.mjs";
         else return DEFAULT_TAILWIND_CONFIG;
       },
     },
@@ -135,7 +137,7 @@ export async function promptForConfig(cwd: string, defaultConfig: Config | null 
       css: options.tailwindCss,
       baseColor: options.tailwindBaseColor,
       cssVariables: options.tailwindCssVariables,
-      // prefix: options.tailwindPrefix,
+      prefix: options.tailwindPrefix,
     },
     aliases: {
       utils: options.utils,
@@ -209,29 +211,18 @@ export async function runinit(cwd: string, config: Config) {
   }
 
   // Write cn file.
-  await fs.writeFile(`${config.resolvedPaths.utils}.${extension}`, extension === "ts" ? templates.UTILS : await transformByDetype(templates.UTILS, ".ts"), "utf8");
+  await fs.writeFile(`${config.resolvedPaths.utils}.${extension}`, extension === "ts" ? templates.UTILS : templates.UTILS_JS, "utf8");
 
   spinner?.succeed();
 
   // Install dependencies.
   const dependenciesSpinner = ora("Installing dependencies...")?.start();
+  const deps = [...PROJECT_DEPENDENCIES];
 
-  // Starting from `shadcn-nuxt` version 0.10.4, Base dependencies are handled by the module so no need to re-add them by the CLI
-  const baseDeps = gte(shadcnNuxt?.version || "0.0.0", "0.10.4") ? [] : PROJECT_DEPENDENCIES.base;
-  const iconsDep = config.style === "new-york" ? ["@radix-icons/vue"] : ["lucide-vue-next"];
-  const deps = baseDeps.concat(iconsDep).filter(Boolean);
-
-  await Promise.allSettled([
-    config.framework === "nuxt" &&
-      (await addDevDependency(PROJECT_DEPENDENCIES.nuxt, {
-        cwd,
-        silent: true,
-      })),
-    await addDependency(deps, {
-      cwd,
-      silent: true,
-    }),
-  ]);
+  await addDependency(deps, {
+    cwd,
+    silent: true,
+  });
 
   dependenciesSpinner?.succeed();
 }

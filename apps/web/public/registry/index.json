@@ -3,7 +3,9 @@
     "name": "todo-app",
     "dependencies": [],
     "registryDependencies": [],
-    "file": "ui/todo-app.tsx",
+    "files": [
+      "ui/todo-app.tsx"
+    ],
     "framework": "react",
     "type": "components:ui"
   },
@@ -11,7 +13,9 @@
     "name": "todo-app",
     "dependencies": [],
     "registryDependencies": [],
-    "file": "ui/todo-app.svelte",
+    "files": [
+      "ui/todo-app.svelte"
+    ],
     "framework": "svelte",
     "type": "components:ui"
   },
@@ -19,7 +23,9 @@
     "name": "todo-app",
     "dependencies": [],
     "registryDependencies": [],
-    "file": "ui/todo-app.vue",
+    "files": [
+      "ui/todo-app.vue"
+    ],
     "framework": "vue",
     "type": "components:ui"
   }

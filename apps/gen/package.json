@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@builder.io/eslint-plugin-mitosis": "^0.0.15",
-    "@builder.io/mitosis": "^0.3.10",
-    "@builder.io/mitosis-cli": "^0.3.10",
+    "@builder.io/mitosis": "^0.3.14",
+    "@builder.io/mitosis-cli": "^0.3.14",
     "eslint": "^8.51.0"
   },
   "devDependencies": {

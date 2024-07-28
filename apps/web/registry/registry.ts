@@ -22,14 +22,14 @@ export async function getRegistry() {
     const componentPath = path.resolve(framework.parentPath, framework.name);
     for (const type of componentType) {
       // read folder for each component type
-      const files = await fs.readdir(path.join(componentPath, type));
+      const files = await fs.readdir(path.posix.join(componentPath, type));
       for (const file of files) {
-        const { registryDependencies, dependencies } = await getDependencies(path.join(componentPath, type, file));
+        const { registryDependencies, dependencies } = await getDependencies(path.posix.join(componentPath, type, file));
 
         registeries.push({
           name: file.replace(path.extname(file), ""),
           type: `components:${type}` as const,
-          file: path.join(type, file),
+          files: [path.posix.join(type, file)],
           registryDependencies: Array.from(registryDependencies),
           dependencies: Array.from(dependencies).filter((item) => item !== framework.name), // framework dependencies is not required
           framework: framework.name as Framework["name"],
@@ -41,8 +41,8 @@ export async function getRegistry() {
 }
 
 async function createTempSourceFile(filename: string) {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "m3tw-"));
-  return path.join(dir, filename);
+  const dir = await fs.mkdtemp(path.posix.join(os.tmpdir(), "m3tw-"));
+  return path.posix.join(dir, filename);
 }
 
 async function getDependencies(filepath: string) {

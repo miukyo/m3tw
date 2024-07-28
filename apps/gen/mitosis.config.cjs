@@ -5,23 +5,17 @@ module.exports = {
   files: "./**",
   targets: ["react", "svelte", "vue"],
   dest: "../web/registry",
-  // exclude: [
-  //   "out",
-  // ],
+  // exclude: ["out"],
   commonOptions: {
     typescript: true,
+    // prettier: false,
   },
   options: {
     react: {
       stylesType: "style-tag",
     },
-    svelte: {
-      // prettier:
-    },
-    qwik: {},
     vue: {
       api: "composition",
     },
   },
-  // getTargetPath: ({ target }) => `./`,
 };

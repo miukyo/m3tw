@@ -26,7 +26,7 @@ list = list.filter((x, i) => i !== idx);
 
 
 
-    let list = ["hello", "world"];
+    let list = ["hello", "worlds"];
 let newItemName = "";
 
 
