@@ -1,0 +1,3 @@
+[submodule "mitosis"]
+	path = mitosis
+	url = https://github.com/miukyo/mitosis.git
