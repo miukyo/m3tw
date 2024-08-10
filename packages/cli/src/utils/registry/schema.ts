@@ -32,10 +32,5 @@ export const frameworksSchema = z.array(
 );
 
 export const registryBaseColorSchema = z.object({
-  cssVars: z.object({
-    light: z.record(z.string(), z.string()),
-    dark: z.record(z.string(), z.string()),
-  }),
-  inlineColorsTemplate: z.string(),
   cssVarsTemplate: z.string(),
 });

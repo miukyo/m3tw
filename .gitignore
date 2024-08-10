@@ -9,6 +9,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+**/.turbo
 
 # Caches
 
@@ -173,3 +174,9 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# Bun
+bun.lockb
+
+# Test Case
+test-case/

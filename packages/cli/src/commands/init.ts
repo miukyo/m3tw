@@ -8,11 +8,11 @@ import { DEFAULT_COMPONENTS, DEFAULT_TAILWIND_CONFIG, DEFAULT_UTILS, getConfig, 
 import { colors } from "consola/utils";
 import { getRegistryBaseColor, getRegistryBaseColors, getRegistryFrameworks } from "../utils/registry";
 import ora from "ora";
-import { transformCJSToESM } from "../utils/transformers/transform-cjs-to-esm";
-import { gte, template } from "lodash-es";
 import * as templates from "../utils/templates";
 import { applyPrefixesCss } from "../utils/transformers/transform-tw-prefix";
-import { addDependency, addDevDependency } from "nypm";
+import { addDependency } from "nypm";
+import { transfromTwConfig } from "../utils/transformers/transform-tw-config";
+import format from "js-beautify";
 
 const PROJECT_DEPENDENCIES = ["tailwindcss-animate", "clsx", "class-variance-authority", "tailwind-merge"];
 
@@ -20,6 +20,7 @@ const initOptionsSchema = z.object({
   cwd: z.string(),
   yes: z.boolean(),
 });
+
 export const init = new Command()
   .name("init")
   .description("initialize your project and install dependencies")
@@ -89,15 +90,7 @@ export async function promptForConfig(cwd: string, defaultConfig: Config | null 
       type: "text",
       name: "tailwindCss",
       message: `Where is your ${highlight("global CSS")} file? ${colors.gray("(this file will be overwritten)")}`,
-      initial: defaultConfig?.tailwind.css,
-    },
-    {
-      type: "toggle",
-      name: "tailwindCssVariables",
-      message: `Would you like to use ${highlight("CSS variables")} for colors?`,
-      initial: defaultConfig?.tailwind.cssVariables ?? true,
-      active: "yes",
-      inactive: "no",
+      initial: "src/index.css",
     },
     {
       type: "text",
@@ -136,7 +129,6 @@ export async function promptForConfig(cwd: string, defaultConfig: Config | null 
       config: options.tailwindConfig,
       css: options.tailwindCss,
       baseColor: options.tailwindBaseColor,
-      cssVariables: options.tailwindCssVariables,
       prefix: options.tailwindPrefix,
     },
     aliases: {
@@ -188,33 +180,28 @@ export async function runinit(cwd: string, config: Config) {
 
   const extension = config.typescript ? "ts" : "js";
 
-  // Write tailwind config.
-  await fs.writeFile(
-    config.resolvedPaths.tailwindConfig,
-    transformCJSToESM(
-      config.resolvedPaths.tailwindConfig,
-      config.tailwind.cssVariables
-        ? template(templates.TAILWIND_CONFIG_WITH_VARIABLES)({ extension, framework: config.framework, prefix: config.tailwind.prefix })
-        : template(templates.TAILWIND_CONFIG)({ extension, framework: config.framework, prefix: config.tailwind.prefix })
-    ),
-    "utf8"
-  );
+  try {
+    const twConfig = await fs.readFile(config.resolvedPaths.tailwindConfig, "utf-8");
+    const content = await transfromTwConfig(path.basename(config.resolvedPaths.tailwindConfig), twConfig, config);
+    await fs.writeFile(config.resolvedPaths.tailwindConfig, format.js(content, { indent_size: 2 }), "utf-8");
 
-  // Write css file.
-  const baseColor = await getRegistryBaseColor(config.tailwind.baseColor);
-  if (baseColor) {
-    await fs.writeFile(
-      config.resolvedPaths.tailwindCss,
-      config.tailwind.cssVariables ? (config.tailwind.prefix ? applyPrefixesCss(baseColor.cssVarsTemplate, config.tailwind.prefix) : baseColor.cssVarsTemplate) : baseColor.inlineColorsTemplate,
-      "utf8"
-    );
+    // Write css file.
+    const baseColor = await getRegistryBaseColor(config.tailwind.baseColor);
+    if (baseColor) {
+      await fs.writeFile(
+        config.resolvedPaths.tailwindCss,
+        format.css(config.tailwind.prefix ? applyPrefixesCss(baseColor.cssVarsTemplate, config.tailwind.prefix) : baseColor.cssVarsTemplate, { indent_size: 2 }),
+        "utf8"
+      );
+    }
+
+    // Write cn file.
+    await fs.writeFile(`${config.resolvedPaths.utils}.${extension}`, extension === "ts" ? templates.UTILS : templates.UTILS_JS, "utf8");
+  } catch (e) {
+    consola.error(e);
+    process.exit(1);
   }
-
-  // Write cn file.
-  await fs.writeFile(`${config.resolvedPaths.utils}.${extension}`, extension === "ts" ? templates.UTILS : templates.UTILS_JS, "utf8");
-
   spinner?.succeed();
-
   // Install dependencies.
   const dependenciesSpinner = ora("Installing dependencies...")?.start();
   const deps = [...PROJECT_DEPENDENCIES];

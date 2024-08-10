@@ -49,7 +49,7 @@ export const add = new Command()
         process.exit(1);
       }
 
-      const registryIndex = await getRegistryIndex();
+      const registryIndex = (await getRegistryIndex()).filter((item) => item.framework === config.framework);
 
       let selectedComponents = options.all ? registryIndex.map((entry) => entry.name) : options.components;
       if (!options.components?.length && !options.all) {

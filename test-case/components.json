@@ -3,9 +3,8 @@
   "tsConfigPath": "tsconfig.json",
   "tailwind": {
     "config": "tailwind.config.js",
-    "css": "src/App.css",
+    "css": "src/index.css",
     "baseColor": "red",
-    "cssVariables": true,
     "prefix": ""
   },
   "framework": "react",

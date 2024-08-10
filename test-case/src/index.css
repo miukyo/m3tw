@@ -1,68 +1,69 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --primary: 356, 75.4%, 41.4%;
+    --on-primary: 0, 0%, 100%;
+    --primary-container: 4, 100%, 92.2%;
+    --on-primary-container: 356, 100%, 12.7%;
+    --secondary: 3, 17.2%, 39.8%;
+    --on-secondary: 0, 0%, 100%;
+    --secondary-container: 4, 100%, 92.2%;
+    --on-secondary-container: 5, 39.7%, 12.4%;
+    --tertiary: 40, 42.5%, 31.4%;
+    --on-tertiary: 0, 0%, 100%;
+    --tertiary-container: 38, 100%, 82.5%;
+    --on-tertiary-container: 38, 100%, 7.6%;
+    --error: 0, 75.5%, 41.6%;
+    --on-error: 0, 0%, 100%;
+    --error-container: 6, 100%, 92%;
+    --on-error-container: 358, 100%, 12.7%;
+    --background: 300, 100%, 99.2%;
+    --on-background: 0, 10.3%, 11.4%;
+    --surface: 300, 100%, 99.2%;
+    --on-surface: 0, 10.3%, 11.4%;
+    --surface-variant: 5, 56.5%, 91%;
+    --on-surface-variant: 4, 11.4%, 29.2%;
+    --outline: 6, 8.1%, 48.2%;
+    --outline-variant: 7, 24.3%, 79.8%;
+    --shadow: 0, 0%, 0%;
+    --scrim: 0, 0%, 0%;
+    --inverse-surface: 8, 8%, 19.6%;
+    --inverse-on-surface: 8, 65.2%, 95.5%;
+    --inverse-primary: 4, 100%, 83.9%;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  .dark {
+    --primary: 4, 100%, 83.9%;
+    --on-primary: 354, 100%, 20.4%;
+    --primary-container: 352, 100%, 28.8%;
+    --on-primary-container: 4, 100%, 92.2%;
+    --secondary: 5, 48.9%, 81.6%;
+    --on-secondary: 4, 27.1%, 21%;
+    --secondary-container: 4, 20.8%, 30.2%;
+    --on-secondary-container: 4, 100%, 92.2%;
+    --tertiary: 38, 58.6%, 71.6%;
+    --on-tertiary: 41, 88.2%, 13.3%;
+    --tertiary-container: 39, 56.1%, 22.4%;
+    --on-tertiary-container: 38, 100%, 82.5%;
+    --error: 6, 100%, 83.5%;
+    --on-error: 357, 100%, 20.6%;
+    --error-container: 356, 100%, 28.8%;
+    --on-error-container: 6, 100%, 83.5%;
+    --background: 0, 10.3%, 11.4%;
+    --on-background: 8, 29.4%, 90%;
+    --surface: 0, 10.3%, 11.4%;
+    --on-surface: 8, 29.4%, 90%;
+    --surface-variant: 4, 11.4%, 29.2%;
+    --on-surface-variant: 7, 24.3%, 79.8%;
+    --outline: 5, 10.4%, 58.4%;
+    --outline-variant: 4, 11.4%, 29.2%;
+    --shadow: 0, 0%, 0%;
+    --scrim: 0, 0%, 0%;
+    --inverse-surface: 8, 29.4%, 90%;
+    --inverse-on-surface: 8, 8%, 19.6%;
+    --inverse-primary: 356, 75.4%, 41.4%;
   }
 }

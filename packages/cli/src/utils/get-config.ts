@@ -1,27 +1,23 @@
 import { z } from "zod";
 import { loadConfig as c12LoadConfig } from "c12";
-import { existsSync } from "node:fs";
 import path from "node:path";
 import { resolveImport } from "./resolve-config";
 import { loadConfig, type ConfigLoaderResult } from "tsconfig-paths";
 
-export const DEFAULT_STYLE = "default";
-export const DEFAULT_COMPONENTS = "@/components";
-export const DEFAULT_UTILS = "@/lib/utils";
+export const DEFAULT_COMPONENTS = "src/components";
+export const DEFAULT_UTILS = "src/lib/utils";
 export const DEFAULT_TYPESCRIPT_CONFIG = "./tsconfig.json";
 export const DEFAULT_TAILWIND_CONFIG = "tailwind.config.js";
-export const DEFAULT_TAILWIND_BASE_COLOR = "slate";
+export const DEFAULT_TAILWIND_BASE_COLOR = "purple";
 
 export const rawConfigSchema = z
   .object({
-    $schema: z.string().optional(),
     typescript: z.boolean().default(true),
     tsConfigPath: z.string().default(DEFAULT_TYPESCRIPT_CONFIG),
     tailwind: z.object({
       config: z.string(),
       css: z.string(),
       baseColor: z.string(),
-      cssVariables: z.boolean().default(true),
       prefix: z.string().optional(),
     }),
     framework: z.string().default("react"),

@@ -14,147 +14,225 @@ export function cn(...inputs) {
 }
 `;
 
-export const TAILWIND_CONFIG = `const animate = require("tailwindcss-animate")
-
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"],
-  content: [
-    './pages/**/*.{<%- extension %>,<%- extension %>x,vue}',
-    './components/**/*.{<%- extension %>,<%- extension %>x,vue}',
-    './app/**/*.{<%- extension %>,<%- extension %>x,vue}',
-    './src/**/*.{<%- extension %>,<%- extension %>x,vue}',
-	],
-  prefix: "<%- prefix %>",
-  theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
-    extend: {
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-    },
+export const TAILWIND_CONFIG_THEME_EXTEND = `
+  colors: {
+    "primary": "hsl(var(--primary))",
+    "on-primary": "hsl(var(--on-primary))",
+    "primary-container": "hsl(var(--primary-container))",
+    "on-primary-container": "hsl(var(--on-primary-container))",
+    "secondary": "hsl(var(--secondary))",
+    "on-secondary": "hsl(var(--on-secondary))",
+    "secondary-container": "hsl(var(--secondary-container))",
+    "on-secondary-container": "hsl(var(--on-secondary-container))",
+    "tertiary": "hsl(var(--tertiary))",
+    "on-tertiary": "hsl(var(--on-tertiary))",
+    "tertiary-container": "hsl(var(--tertiary-container))",
+    "on-tertiary-container": "hsl(var(--on-tertiary-container))",
+    "error": "hsl(var(--error))",
+    "on-error": "hsl(var(--on-error))",
+    "error-container": "hsl(var(--error-container))",
+    "on-error-container": "hsl(var(--on-error-container))",
+    "background": "hsl(var(--background))",
+    "on-background": "hsl(var(--on-background))",
+    "surface": "hsl(var(--surface))",
+    "surface-dim": "hsl(var(--surface-dim))",
+    "surface-bright": "hsl(var(--surface-bright))",
+    "surface-container-lowest": "hsl(var(--surface-container-lowest))",
+    "surface-container-low": "hsl(var(--surface-container-low))",
+    "surface-container": "hsl(var(--surface-container))",
+    "surface-container-high": "hsl(var(--surface-container-high))",
+    "surface-container-highest": "hsl(var(--surface-container-highest))",
+    "surface-tint": "hsl(var(--surface-tint))",
+    "on-surface": "hsl(var(--on-surface))",
+    "surface-variant": "hsl(var(--surface-variant))",
+    "on-surface-variant": "hsl(var(--on-surface-variant))",
+    "outline": "hsl(var(--outline))",
+    "outline-variant": "hsl(var(--outline-variant))",
+    "shadow": "hsl(var(--shadow))",
+    "scrim": "hsl(var(--scrim))",
+    "inverse-surface": "hsl(var(--inverse-surface))",
+    "inverse-on-surface": "hsl(var(--inverse-on-surface))",
+    "inverse-primary": "hsl(var(--inverse-primary))",
   },
-  plugins: [animate],
-}`;
-
-export const TAILWIND_CONFIG_WITH_VARIABLES = `const animate = require("tailwindcss-animate")
-
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"],
-  safelist: ["dark"],
-  prefix: "<%- prefix %>",
-  <% if (framework === 'vite') { %>
-  content: [
-    './pages/**/*.{<%- extension %>,<%- extension %>x,vue}',
-    './components/**/*.{<%- extension %>,<%- extension %>x,vue}',
-    './app/**/*.{<%- extension %>,<%- extension %>x,vue}',
-    './src/**/*.{<%- extension %>,<%- extension %>x,vue}',
-	],
-  <% } else if (framework === 'laravel') { %>
-  content: [
-    "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-    "./storage/framework/views/*.php",
-    "./resources/views/**/*.blade.php",
-    "./resources/js/**/*.{<%- extension %>,<%- extension %>x,vue}",
-  ],
-  <% } else if (framework === 'astro') { %>
-    content: [
-      './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+  transitionTimingFunction: {
+    emphasized: "cubic-bezier(0.2, 0, 0, 1)",
+    "emphasized-accelerate": "cubic-bezier(0.3, 0, 0.8, 0.15)",
+    "emphasized-decelerate": "cubic-bezier(0.05, 0.7, 0.1, 1)",
+    legacy: "cubic-bezier(0.4, 0, 0.2, 1)",
+    "legacy-accelerate": "cubic-bezier(0.4, 0, 1, 1)",
+    "legacy-decelerate": "cubic-bezier(0, 0, 0.2, 1)",
+    standard: "cubic-bezier(0.2, 0, 0, 1)",
+    "standard-accelerate": "cubic-bezier(0.3, 0, 1, 1)",
+    "standard-decelerate": "cubic-bezier(0, 0, 0, 1)",
+  },
+  transitionDuration: {
+    "extra-long1": "700ms",
+    "extra-long2": "800ms",
+    "extra-long3": "900ms",
+    "extra-long4": "1000ms",
+    long1: "450ms",
+    long2: "500ms",
+    long3: "550ms",
+    long4: "600ms",
+    medium1: "250ms",
+    medium2: "300ms",
+    medium3: "350ms",
+    medium4: "400ms",
+    short1: "50ms",
+    short2: "100ms",
+    short3: "150ms",
+    short4: "200ms",
+  },
+  borderRadius: {
+    "extra-large": "1.75rem",
+    "extra-large-top": "1.75rem 1.75rem 0rem 0rem",
+    "extra-small": "0.25rem",
+    "extra-small-top": "0.25rem 0.25rem 0rem 0rem",
+    large: "1rem",
+    "large-end": "0rem 1rem 1rem 0rem",
+    "large-start": "1rem 0rem 0rem 1rem",
+    "large-top": "1rem 1rem 0rem 0rem",
+    medium: "0.75rem",
+    small: "0.5rem",
+  },
+  boxShadow: {
+    level1: "0 0.5px 1.5px 0 rgba(var(--shadow), 19%), 0 0 1px 0 rgba(var(--shadow), 3.9%)",
+    level2: "0 0.85px 3px 0 rgba(var(--shadow), 19%), 0 0.25px 1px 0 rgba(var(--shadow), 3.9%)",
+    level3: "0 1.25px 5px 0 rgba(var(--shadow), 19%), 0 0.3333px 1.5px 0 rgba(var(--shadow), 3.9%)",
+    level4: "0 1.85px 6.25px 0 rgba(var(--shadow), 19%), 0 0.5px 1.75px 0 rgba(var(--shadow), 3.9%)",
+    level5: "0 2.75px 9px 0 rgba(var(--shadow), 19%), 0 0.25px 3px 0 rgba(var(--shadow), 3.9%)",
+  },
+  fontSize: {
+    "body-large": [
+      "1rem", 
+      {
+        lineHeight: "1.5rem",
+        letterSpacing: "0.03125rem",
+        fontWeight: "400"
+      }
     ],
-  <% } %>
-  theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
-    extend: {
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-      },
-      borderRadius: {
-      	xl: "calc(var(--radius) + 4px)",
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-        "collapsible-down": {
-          from: { height: 0 },
-          to: { height: 'var(--radix-collapsible-content-height)' },
-        },
-        "collapsible-up": {
-          from: { height: 'var(--radix-collapsible-content-height)' },
-          to: { height: 0 },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "collapsible-down": "collapsible-down 0.2s ease-in-out",
-        "collapsible-up": "collapsible-up 0.2s ease-in-out",
-      },
-    },
+    "body-medium": [
+      "0.875rem", 
+      {
+        lineHeight: "1.25rem",
+        letterSpacing: "0.015625rem",
+        fontWeight: "400"
+      }
+    ],
+    "body-small": [
+      "0.75rem", 
+      {
+        lineHeight: "1rem",
+        letterSpacing: "0.025rem",
+        fontWeight: "400"
+      }
+    ],
+    "display-large": [
+      "3.5625rem", 
+      {
+        lineHeight: "4rem",
+        letterSpacing: "-0.015625rem",
+        fontWeight: "400"
+      }
+    ],
+    "display-medium": [
+      "2.8125rem", 
+      {
+        lineHeight: "3.25rem",
+        letterSpacing: "0rem",
+        fontWeight: "400"
+      }
+    ],
+    "display-small": [
+      "2.25rem", 
+      {
+        lineHeight: "2.75rem",
+        letterSpacing: "0rem",
+        fontWeight: "400"
+      }
+    ],
+    "headline-large": [
+      "2rem", 
+      {
+        lineHeight: "2.5rem",
+        letterSpacing: "0rem",
+        fontWeight: "400"
+      }
+    ],
+    "headline-medium": [
+      "1.75rem", 
+      {
+        lineHeight: "2.25rem",
+        letterSpacing: "0rem",
+        fontWeight: "400"
+      }
+    ],
+    "headline-small": [
+      "1.5rem", 
+      {
+        lineHeight: "2rem",
+        letterSpacing: "0rem",
+        fontWeight: "400"
+      }
+    ],
+    "label-large": [
+      "0.875rem", 
+      {
+        lineHeight: "1.25rem",
+        letterSpacing: "0.00625rem",
+        fontWeight: "500"
+      }
+    ],
+    "label-medium": [
+      "0.75rem", 
+      {
+        lineHeight: "1rem",
+        letterSpacing: "0.03125rem",
+        fontWeight: "500"
+      }
+    ],
+    "label-small": [
+      "0.6875rem", 
+      {
+        lineHeight: "1rem",
+        letterSpacing: "0.03125rem",
+        fontWeight: "500"
+      }
+    ],
+    "title-large": [
+      "1.375rem", 
+      {
+        lineHeight: "1.75rem",
+        letterSpacing: "0rem",
+        fontWeight: "400"
+      }
+    ],
+    "title-medium": [
+      "1rem", 
+      {
+        lineHeight: "1.5rem",
+        letterSpacing: "0.009375rem",
+        fontWeight: "500"
+      }
+    ],
+    "title-small": [
+      "0.875rem", 
+      {
+        lineHeight: "1.25rem",
+        letterSpacing: "0.00625rem",
+        fontWeight: "500"
+      }
+    ],
   },
-  plugins: [animate],
-}`;
+  fontWeight: {
+    bold: "700",
+    medium: "500",
+    regular: "400",
+  },
+  opacity: {
+    "layer-hover": "0.08";
+    "layer-focus": "0.12";
+    "layer-pressed": "0.12";
+    "layer-dragged": "0.16";
+  }
+`;

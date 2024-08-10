@@ -1,4 +1,4 @@
-import { argbFromHex, hexFromArgb, rgbaFromArgb, themeFromSourceColor } from "@material/material-color-utilities";
+import { argbFromHex, CorePalette, DynamicScheme, hexFromArgb, rgbaFromArgb, themeFromSourceColor } from "@material/material-color-utilities";
 
 export const BASE_COLORS = [{ red: "#ef4444" }, { yellow: "#eab308" }, { green: "#22c55e" }, { blue: "#3b82f6" }, { purple: "#a855f7" }];
 export type BaseColorKeys = keyof (typeof BASE_COLORS)[number];
@@ -6,6 +6,26 @@ export type BaseColorKeys = keyof (typeof BASE_COLORS)[number];
 export function getColors(color: BaseColorKeys, type: "rgb" | "hex" | "hsl") {
   const baseColor = BASE_COLORS.find((item) => color === Object.keys(item)[0]) as unknown as { [key in BaseColorKeys]: string };
   const colors = themeFromSourceColor(argbFromHex(baseColor[color]));
+  Object.assign(colors.schemes.light, {
+    "surface-dim": colors.palettes.neutral.tone(87),
+    "surface-bright": colors.palettes.neutral.tone(98),
+    "surface-container-lowest": colors.palettes.neutral.tone(100),
+    "surface-container-low": colors.palettes.neutral.tone(96),
+    "surface-container": colors.palettes.neutral.tone(94),
+    "surface-container-high": colors.palettes.neutral.tone(92),
+    "surface-container-highest": colors.palettes.neutral.tone(90),
+    "surface-tint-color": colors.schemes.light.primary,
+  });
+  Object.assign(colors.schemes.dark, {
+    "surface-dim": colors.palettes.neutral.tone(6),
+    "surface-bright": colors.palettes.neutral.tone(24),
+    "surface-container-lowest": colors.palettes.neutral.tone(4),
+    "surface-container-low": colors.palettes.neutral.tone(10),
+    "surface-container": colors.palettes.neutral.tone(12),
+    "surface-container-high": colors.palettes.neutral.tone(17),
+    "surface-container-highest": colors.palettes.neutral.tone(22),
+    "surface-tint-color": colors.schemes.dark.primary,
+  });
   let colorScheme = {} as { [x in "dark" | "light"]: { [x: string]: unknown } };
   Object.keys(colors.schemes).forEach((mode) => {
     const scheme = colors.schemes[mode as keyof typeof colors.schemes].toJSON();

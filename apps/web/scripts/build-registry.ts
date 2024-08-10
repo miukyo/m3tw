@@ -102,10 +102,7 @@ export const BASE_STYLES = `@tailwind base;
 `;
 for (const baseColor of BASE_COLORS.map((_, i) => Object.keys(BASE_COLORS[i])[0])) {
   const scheme = getColors(baseColor as BaseColorKeys, "hsl");
-  let vars = `{
-  "cssVars": `;
-  vars += JSON.stringify(scheme) + ",";
-  vars += `"inlineColorsTemplate": "${BASE_STYLES}",`;
+  let vars = `{`;
   vars += `"cssVarsTemplate": "${BASE_STYLES} `;
   vars += `@layer base { `;
   const keys = [...Object.keys(scheme.light)];
@@ -118,7 +115,8 @@ for (const baseColor of BASE_COLORS.map((_, i) => Object.keys(BASE_COLORS[i])[0]
   }
   vars += light + dark;
   vars += ` } }" }`;
-  const colorJson = JSON.stringify(vars.replaceAll("\n", ""), null, 2);
+  const format = await prettier.format(JSON.parse(JSON.stringify(vars)).cssVarsTemplate, { parser: "scss" });
+  const colorJson = JSON.stringify(format.replaceAll("\n", ""), null, 2);
   rimrafSync(path.join(REGISTRY_PATH, `colors/${baseColor}.json`));
   fs.writeFileSync(path.join(REGISTRY_PATH, `colors/${baseColor}.json`), await prettier.format(JSON.parse(colorJson), { parser: "json-stringify" }));
 }
